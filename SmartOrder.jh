@@ -1,0 +1,63 @@
+entity CommonEntity {
+    id String,
+	createdDate  Instant,
+    lastModifiedDate Instant
+}
+
+entity User  {
+    userName String,
+    passWord String,
+    role Role
+}
+
+entity Invoice {
+  totalPrice Long,
+  user User,
+  //list Order
+}
+
+enum Role {
+   ADMIN, EMPLOYEE, CUSTOMER
+}
+
+entity Product {
+ 	name String,
+ 	image String,
+ 	price Long,
+ 	catalog Catalog,
+ 	vote Long,
+ 	rate Long,
+ 	count Long,
+ 	status StatusProduct
+}
+
+enum Catalog {
+	FOOD , DRINK , OTHER
+}
+
+entity Table {
+    name String,
+    status StatusTable,
+    accessTableCode String
+}
+
+enum StatusTable {
+   EMPTY , FULL
+}
+
+enum StatusProduct {
+  OUTOFSTOCK , STOCKING
+}
+
+entity Order {
+   table Table,
+   status StatusOrder,
+   // list Product
+}
+
+enum StatusOrder {
+  REQUEST, INPROGESS, DELAYFORPAY , CANCEL, FINISH
+}
+
+// Set an angular suffix
+// angularSuffix * with mySuffix
