@@ -1,0 +1,3 @@
++ DEV:
+1. run lan luot jhipster-register, app, gateway voi cau lenh: $mvn
+2. truoc khi commit code thu chay code ok roi moi up nhe
