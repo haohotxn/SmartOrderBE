@@ -1,0 +1,32 @@
+{
+  "generator-jhipster": {
+    "promptValues": {
+      "packageName": "com.tradacompany.app"
+    },
+    "jhipsterVersion": "5.4.2",
+    "applicationType": "microservice",
+    "baseName": "app",
+    "packageName": "com.tradacompany.app",
+    "packageFolder": "com/tradacompany/app",
+    "serverPort": "8081",
+    "authenticationType": "jwt",
+    "cacheProvider": "hazelcast",
+    "enableHibernateCache": false,
+    "websocket": false,
+    "databaseType": "mongodb",
+    "devDatabaseType": "mongodb",
+    "prodDatabaseType": "mongodb",
+    "searchEngine": false,
+    "messageBroker": false,
+    "serviceDiscoveryType": "eureka",
+    "buildTool": "maven",
+    "enableSwaggerCodegen": false,
+    "jwtSecretKey": "YjU4Zjc1NmQ1NDI2ODE1ZTk1Y2M2MWE1Y2QyZmVkNGVlMWI2YjY4YmJlMTdhYjc0ZjM4NmVjNDdkYmUxZGI0NTk1NjhlMzI3YjRkNzA1YjI2YTY0M2RkYmUwZmFjMDJhOWE1ZTMyMTlkNjA0ZGJlMjA2YWE0OGYxNzVlZjhmYTk=",
+    "enableTranslation": false,
+    "testFrameworks": [],
+    "jhiPrefix": "jhi",
+    "clientPackageManager": "npm",
+    "skipClient": true,
+    "skipUserManagement": true
+  }
+}
