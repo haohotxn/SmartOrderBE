@@ -1,10 +1,13 @@
 entity CommonEntity {
-    id String,
 	createdDate  Instant,
     lastModifiedDate Instant
 }
 
-entity User  {
+enum Role {
+   ADMIN, EMPLOYEE, CUSTOMER
+}
+
+entity UserAccess  {
     userName String,
     passWord String,
     role Role
@@ -12,14 +15,24 @@ entity User  {
 
 entity Invoice {
   totalPrice Long,
-  user User,
-  //list Order
+  //user UserAccess,
 }
 
-enum Role {
-   ADMIN, EMPLOYEE, CUSTOMER
+enum StatusProduct {
+  OUT_OF_STOCK , STOCKING , AVAILABLE
 }
 
+enum Catalog {
+	FOOD , DRINK , OTHER
+}
+
+enum StatusOrder {
+  REQUEST, INPROGESS, PENDING , CANCELED, COMPLETED
+}
+
+enum StatusTable {
+   EMPTY , FULL
+}
 entity Product {
  	name String,
  	image String,
@@ -31,33 +44,20 @@ entity Product {
  	status StatusProduct
 }
 
-enum Catalog {
-	FOOD , DRINK , OTHER
-}
-
-entity Table {
+entity TableOrder {
     name String,
     status StatusTable,
     accessTableCode String
 }
 
-enum StatusTable {
-   EMPTY , FULL
-}
-
-enum StatusProduct {
-  OUTOFSTOCK , STOCKING
-}
-
 entity Order {
-   table Table,
+   //table Table,
    status StatusOrder,
-   // list Product
 }
 
-enum StatusOrder {
-  REQUEST, INPROGESS, DELAYFORPAY , CANCEL, FINISH
-}
 
-// Set an angular suffix
-// angularSuffix * with mySuffix
+dto * with mapstruct except CommonEntity
+paginate Product, Invoice , Order , UserAccess with infinite-scroll except CommonEntity
+paginate TableOrder with pagination except CommonEntity
+service all with serviceImpl except CommonEntity
+service all with serviceClass except CommonEntity
