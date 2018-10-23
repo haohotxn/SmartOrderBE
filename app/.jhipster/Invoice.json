@@ -1,0 +1,20 @@
+{
+    "name": "Invoice",
+    "fields": [
+        {
+            "fieldName": "totalPrice",
+            "fieldType": "Long"
+        }
+    ],
+    "relationships": [],
+    "changelogDate": "20181023160422",
+    "entityTableName": "invoice",
+    "dto": "mapstruct",
+    "pagination": "infinite-scroll",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "app",
+    "applications": "*",
+    "microserviceName": "app"
+}
