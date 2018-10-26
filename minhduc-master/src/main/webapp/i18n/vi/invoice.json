@@ -1,0 +1,22 @@
+
+{
+    "smartorderApp": {
+        "invoice" : {
+            "home": {
+                "title": "Invoices",
+                "createLabel": "Thêm mới một Invoice",
+                "createOrEditLabel": "Thêm mới hoặc cập nhật Invoice"
+            },
+            "created": "Một Invoice mới được tạo với định danh {{ param }}",
+            "updated": "Một Invoice cập nhật với định danh {{ param }}",
+            "deleted": "Một Invoice đã xóa với định danh {{ param }}",
+            "delete": {
+                "question": "Bạn có chắc là muốn xóa Invoice {{ id }}?"
+            },
+            "detail": {
+                "title": "Invoice"
+            },
+            "totalPrice": "Total Price"
+        }
+    }
+}

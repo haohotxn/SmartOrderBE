@@ -1,0 +1,10 @@
+{
+    "smartorderApp": {
+        "Catalog" : {
+            "null": "",
+            "FOOD": "FOOD",
+            "DRINK": "DRINK",
+            "OTHER": "OTHER"
+        }
+    }
+}
