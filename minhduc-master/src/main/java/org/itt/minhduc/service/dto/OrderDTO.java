@@ -1,8 +1,15 @@
 package org.itt.minhduc.service.dto;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
+import java.util.Set;
+
+import org.itt.minhduc.domain.Product;
 import org.itt.minhduc.domain.enumeration.StatusOrder;
+import org.itt.minhduc.domain.sub.ProductInOrder;
+import org.springframework.data.mongodb.core.mapping.Field;
+import org.springframework.data.util.Pair;
 
 /**
  * A DTO for the Order entity.
@@ -13,7 +20,30 @@ public class OrderDTO implements Serializable {
 
     private StatusOrder status;
 
-    public String getId() {
+    private Integer tableId;
+    
+    private List<Pair<Product, Integer>> products; 
+    
+    
+    
+    public Integer getTableId() {
+		return tableId;
+	}
+
+	public void setTableId(Integer tableId) {
+		this.tableId = tableId;
+	}
+
+
+	public List<Pair<Product, Integer>> getProducts() {
+		return products;
+	}
+
+	public void setProducts(List<Pair<Product, Integer>> products) {
+		this.products = products;
+	}
+
+	public String getId() {
         return id;
     }
 

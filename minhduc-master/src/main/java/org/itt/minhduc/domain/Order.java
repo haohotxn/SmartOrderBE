@@ -3,12 +3,13 @@ package org.itt.minhduc.domain;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.Set;
 
 import org.itt.minhduc.domain.enumeration.StatusOrder;
+import org.itt.minhduc.domain.sub.ProductInOrder;
 
 /**
  * A Order.
@@ -23,8 +24,31 @@ public class Order extends AbstractAuditingEntity implements Serializable {
 
     @Field("status")
     private StatusOrder status;
+    
+    @Field("table_id")
+    private Integer tableId;
+    
+    @Field("product_in_order")
+    private Set<ProductInOrder> products; 
+    
+    
+    public Integer getTableId() {
+		return tableId;
+	}
 
-    // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
+	public void setTableId(Integer tableId) {
+		this.tableId = tableId;
+	}
+
+	public Set<ProductInOrder> getProducts() {
+		return products;
+	}
+
+	public void setProducts(Set<ProductInOrder> products) {
+		this.products = products;
+	}
+
+	// jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public String getId() {
         return id;
     }
