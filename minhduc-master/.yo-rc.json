@@ -1,0 +1,40 @@
+{
+  "generator-jhipster": {
+    "promptValues": {
+      "packageName": "org.itt.minhduc",
+      "nativeLanguage": "vi"
+    },
+    "jhipsterVersion": "5.5.0",
+    "applicationType": "gateway",
+    "baseName": "smartorder",
+    "packageName": "org.itt.minhduc",
+    "packageFolder": "org/itt/minhduc",
+    "serverPort": "8080",
+    "authenticationType": "jwt",
+    "cacheProvider": "hazelcast",
+    "enableHibernateCache": false,
+    "websocket": false,
+    "databaseType": "mongodb",
+    "devDatabaseType": "mongodb",
+    "prodDatabaseType": "mongodb",
+    "searchEngine": false,
+    "messageBroker": false,
+    "serviceDiscoveryType": false,
+    "buildTool": "maven",
+    "enableSwaggerCodegen": false,
+    "jwtSecretKey": "ODEwNDM5MTQwMzMwOTkwNDdiNGI1YmZiNTk4NDY5YTdjZWU1ZGNmODUyMzhkNmVmMGJhNTNiMjNiZDExYTU4NWE1NWM1ZWM4NmE0MjdjM2IwZGI5NDEzODcxMTMxYWRlMzliODNmNGJiNzk1ZmEyYzAzOThlNjg4MWIyNDdjNmY=",
+    "clientFramework": "react",
+    "useSass": true,
+    "clientPackageManager": "npm",
+    "testFrameworks": [
+      "gatling"
+    ],
+    "jhiPrefix": "jhi",
+    "enableTranslation": true,
+    "nativeLanguage": "vi",
+    "languages": [
+      "vi",
+      "en"
+    ]
+  }
+}

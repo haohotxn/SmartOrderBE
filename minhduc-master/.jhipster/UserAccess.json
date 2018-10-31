@@ -1,0 +1,28 @@
+{
+    "name": "UserAccess",
+    "fields": [
+        {
+            "fieldName": "userName",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "passWord",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "role",
+            "fieldType": "Role",
+            "fieldValues": "ADMIN,EMPLOYEE,CUSTOMER"
+        }
+    ],
+    "relationships": [],
+    "changelogDate": "20181023102816",
+    "entityTableName": "user_access",
+    "dto": "mapstruct",
+    "pagination": "infinite-scroll",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

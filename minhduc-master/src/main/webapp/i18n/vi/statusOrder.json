@@ -1,0 +1,12 @@
+{
+    "smartorderApp": {
+        "StatusOrder" : {
+            "null": "",
+            "REQUEST": "REQUEST",
+            "INPROGESS": "INPROGESS",
+            "PENDING": "PENDING",
+            "CANCELED": "CANCELED",
+            "COMPLETED": "COMPLETED"
+        }
+    }
+}

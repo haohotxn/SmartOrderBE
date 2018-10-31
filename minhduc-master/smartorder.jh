@@ -1,0 +1,63 @@
+entity CommonEntity {
+	createdDate  Instant,
+    lastModifiedDate Instant
+}
+
+enum Role {
+   ADMIN, EMPLOYEE, CUSTOMER
+}
+
+entity UserAccess  {
+    userName String,
+    passWord String,
+    role Role
+}
+
+entity Invoice {
+  totalPrice Long,
+  //user UserAccess,
+}
+
+enum StatusProduct {
+  OUT_OF_STOCK , STOCKING , AVAILABLE
+}
+
+enum Catalog {
+	FOOD , DRINK , OTHER
+}
+
+enum StatusOrder {
+  REQUEST, INPROGESS, PENDING , CANCELED, COMPLETED
+}
+
+enum StatusTable {
+   EMPTY , FULL
+}
+entity Product {
+ 	name String,
+ 	image String,
+ 	price Long,
+ 	catalog Catalog,
+ 	vote Long,
+ 	rate Long,
+ 	count Long,
+ 	status StatusProduct
+}
+
+entity TableOrder {
+    name String,
+    status StatusTable,
+    accessTableCode String
+}
+
+entity Order {
+   //table Table,
+   status StatusOrder,
+}
+
+
+dto * with mapstruct except CommonEntity
+paginate Product, Invoice , Order , UserAccess with infinite-scroll except CommonEntity
+paginate TableOrder with pagination except CommonEntity
+service all with serviceImpl except CommonEntity
+service all with serviceClass except CommonEntity

@@ -1,0 +1,10 @@
+{
+    "smartorderApp": {
+        "Role" : {
+            "null": "",
+            "ADMIN": "ADMIN",
+            "EMPLOYEE": "EMPLOYEE",
+            "CUSTOMER": "CUSTOMER"
+        }
+    }
+}

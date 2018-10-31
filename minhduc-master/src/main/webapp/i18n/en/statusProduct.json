@@ -1,0 +1,10 @@
+{
+    "smartorderApp": {
+        "StatusProduct" : {
+            "null": "",
+            "OUT_OF_STOCK": "OUT_OF_STOCK",
+            "STOCKING": "STOCKING",
+            "AVAILABLE": "AVAILABLE"
+        }
+    }
+}

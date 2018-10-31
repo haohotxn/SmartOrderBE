@@ -1,0 +1,24 @@
+
+{
+    "smartorderApp": {
+        "tableOrder" : {
+            "home": {
+                "title": "Table Orders",
+                "createLabel": "Create a new Table Order",
+                "createOrEditLabel": "Create or edit a Table Order"
+            },
+            "created": "A new Table Order is created with identifier {{ param }}",
+            "updated": "A Table Order is updated with identifier {{ param }}",
+            "deleted": "A Table Order is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Table Order {{ id }}?"
+            },
+            "detail": {
+                "title": "Table Order"
+            },
+            "name": "Name",
+            "status": "Status",
+            "accessTableCode": "Access Table Code"
+        }
+    }
+}

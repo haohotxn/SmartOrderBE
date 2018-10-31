@@ -1,0 +1,23 @@
+
+{
+    "smartorderApp": {
+        "commonEntity" : {
+            "home": {
+                "title": "Common Entities",
+                "createLabel": "Create a new Common Entity",
+                "createOrEditLabel": "Create or edit a Common Entity"
+            },
+            "created": "A new Common Entity is created with identifier {{ param }}",
+            "updated": "A Common Entity is updated with identifier {{ param }}",
+            "deleted": "A Common Entity is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Common Entity {{ id }}?"
+            },
+            "detail": {
+                "title": "Common Entity"
+            },
+            "createdDate": "Created Date",
+            "lastModifiedDate": "Last Modified Date"
+        }
+    }
+}

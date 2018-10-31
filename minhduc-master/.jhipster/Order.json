@@ -1,0 +1,20 @@
+{
+    "name": "Order",
+    "fields": [
+        {
+            "fieldName": "status",
+            "fieldType": "StatusOrder",
+            "fieldValues": "REQUEST,INPROGESS,PENDING,CANCELED,COMPLETED"
+        }
+    ],
+    "relationships": [],
+    "changelogDate": "20181023102820",
+    "entityTableName": "order",
+    "dto": "mapstruct",
+    "pagination": "infinite-scroll",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

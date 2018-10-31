@@ -1,0 +1,49 @@
+{
+    "name": "Product",
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "image",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "price",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "catalog",
+            "fieldType": "Catalog",
+            "fieldValues": "FOOD,DRINK,OTHER"
+        },
+        {
+            "fieldName": "vote",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "rate",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "count",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "status",
+            "fieldType": "StatusProduct",
+            "fieldValues": "OUT_OF_STOCK,STOCKING,AVAILABLE"
+        }
+    ],
+    "relationships": [],
+    "changelogDate": "20181023102818",
+    "entityTableName": "product",
+    "dto": "mapstruct",
+    "pagination": "infinite-scroll",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}
