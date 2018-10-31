@@ -1,9 +1,0 @@
-{
-    "smartorderApp": {
-        "StatusTable" : {
-            "null": "",
-            "EMPTY": "EMPTY",
-            "FULL": "FULL"
-        }
-    }
-}
