@@ -1,6 +1,8 @@
 package org.itt.minhduc.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+
+import org.itt.minhduc.domain.enumeration.StatusOrder;
 import org.itt.minhduc.service.OrderService;
 import org.itt.minhduc.web.rest.errors.BadRequestAlertException;
 import org.itt.minhduc.web.rest.util.HeaderUtil;
@@ -18,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -123,4 +125,21 @@ public class OrderResource {
         orderService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id)).build();
     }
+    
+    /**
+     * GET  /orders/{id} : get all the orders in a table.
+     *
+     * @param id of table
+     * @return the ResponseEntity with status 200 (OK) and the list of orders REQUEST, PENDING, INPROGESS, COMPLETED in body
+     */
+    @GetMapping("/orders/{tableid}")
+    @Timed
+    public ResponseEntity<List<OrderDTO>> getCurrentOrdersInTable(@PathVariable String tableid) {
+    	log.debug("REST request to get a page of Orders");
+		List<OrderDTO> orderDtos = orderService.findCurrentOrdersInTable(tableid);
+		return new ResponseEntity<>(orderDtos, HttpStatus.OK);
+    }
+    
+    
+    
 }

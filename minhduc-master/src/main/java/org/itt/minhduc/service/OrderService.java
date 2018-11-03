@@ -1,6 +1,7 @@
 package org.itt.minhduc.service;
 
 import org.itt.minhduc.domain.Order;
+import org.itt.minhduc.domain.enumeration.StatusOrder;
 import org.itt.minhduc.repository.OrderRepository;
 import org.itt.minhduc.service.dto.OrderDTO;
 import org.itt.minhduc.service.mapper.OrderMapper;
@@ -11,6 +12,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -77,5 +80,24 @@ public class OrderService {
     public void delete(String id) {
         log.debug("Request to delete Order : {}", id);
         orderRepository.deleteById(id);
+    }
+    
+    /**
+     * Get all the current orders in table.
+     *
+     * @param tableId
+     * @return the list of entities
+     */
+    public List<OrderDTO> findCurrentOrdersInTable(String tableId) {
+        log.debug("Request to get all Orders");
+        List<Order> orders = orderRepository.findByTableIdLike(tableId);
+		List<Order> currentOrdersInTable = new ArrayList<Order>();
+		for (Order order : orders) {
+			if ((order.getStatus() == StatusOrder.COMPLETED) || (order.getStatus() == StatusOrder.INPROGESS)
+					|| (order.getStatus() == StatusOrder.PENDING) || (order.getStatus() == StatusOrder.REQUEST)) {
+				currentOrdersInTable.add(order);
+			}
+		}
+        return orderMapper.toDto(currentOrdersInTable);
     }
 }

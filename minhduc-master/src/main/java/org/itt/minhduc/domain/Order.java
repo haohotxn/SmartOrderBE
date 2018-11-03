@@ -7,6 +7,7 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.Set;
 
 import org.itt.minhduc.domain.enumeration.StatusOrder;
 
@@ -24,7 +25,31 @@ public class Order extends AbstractAuditingEntity implements Serializable {
     @Field("status")
     private StatusOrder status;
 
-    // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
+    @Field("table_id")
+    private String tableId;
+    
+    @Field("products")
+    private Set<Product> products;
+    
+    
+    
+    public String getTableId() {
+		return tableId;
+	}
+
+	public void setTableId(String tableId) {
+		this.tableId = tableId;
+	}
+
+	public Set<Product> getProducts() {
+		return products;
+	}
+
+	public void setProducts(Set<Product> products) {
+		this.products = products;
+	}
+
+	// jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public String getId() {
         return id;
     }

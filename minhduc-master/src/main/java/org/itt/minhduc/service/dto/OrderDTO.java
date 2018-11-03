@@ -2,7 +2,11 @@ package org.itt.minhduc.service.dto;
 
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.Set;
+
+import org.itt.minhduc.domain.Product;
 import org.itt.minhduc.domain.enumeration.StatusOrder;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 /**
  * A DTO for the Order entity.
@@ -12,8 +16,30 @@ public class OrderDTO implements Serializable {
     private String id;
 
     private StatusOrder status;
+    
+    private String tableId;
+    
+    private Set<Product> products;
+    
 
-    public String getId() {
+    
+    public String getTableId() {
+		return tableId;
+	}
+
+	public void setTableId(String tableId) {
+		this.tableId = tableId;
+	}
+
+	public Set<Product> getProducts() {
+		return products;
+	}
+
+	public void setProducts(Set<Product> products) {
+		this.products = products;
+	}
+
+	public String getId() {
         return id;
     }
 
