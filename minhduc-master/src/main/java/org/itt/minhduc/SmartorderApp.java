@@ -2,6 +2,7 @@ package org.itt.minhduc;
 
 import org.itt.minhduc.config.ApplicationProperties;
 import org.itt.minhduc.config.DefaultProfileUtil;
+import org.itt.minhduc.config.FileStorageProperties;
 
 import io.github.jhipster.config.JHipsterConstants;
 
@@ -20,7 +21,7 @@ import java.util.Arrays;
 import java.util.Collection;
 
 @SpringBootApplication
-@EnableConfigurationProperties({ApplicationProperties.class})
+@EnableConfigurationProperties({ApplicationProperties.class,FileStorageProperties.class})
 public class SmartorderApp {
 
     private static final Logger log = LoggerFactory.getLogger(SmartorderApp.class);

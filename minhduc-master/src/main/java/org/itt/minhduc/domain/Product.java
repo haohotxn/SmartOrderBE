@@ -34,8 +34,19 @@ public class Product extends AbstractAuditingEntity implements Serializable {
 
     @Field("catalog")
     private Catalog catalog;
+    
+    @Field("category")
+    private Category category;
 
-    @Field("vote")
+    public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
+
+	@Field("vote")
     private Long vote;
 
     @Field("rate")

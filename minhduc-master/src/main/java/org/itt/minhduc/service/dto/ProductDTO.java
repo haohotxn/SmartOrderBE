@@ -2,6 +2,8 @@ package org.itt.minhduc.service.dto;
 
 import java.io.Serializable;
 import java.util.Objects;
+
+import org.itt.minhduc.domain.Category;
 import org.itt.minhduc.domain.enumeration.Catalog;
 import org.itt.minhduc.domain.enumeration.StatusProduct;
 
@@ -19,6 +21,16 @@ public class ProductDTO implements Serializable {
     private Long price;
 
     private Catalog catalog;
+    
+    public CategoryDTO getCategory() {
+		return category;
+	}
+
+	public void setCategory(CategoryDTO category) {
+		this.category = category;
+	}
+
+	private CategoryDTO category;
 
     private Long vote;
 
