@@ -12,7 +12,7 @@ public class Category extends AbstractAuditingEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	private String id;
+	private String id; 
 	
 	@Field(value = "name")
 	private String name;
