@@ -4,15 +4,18 @@ import com.codahale.metrics.annotation.Timed;
 
 import org.itt.minhduc.domain.enumeration.Catalog;
 import org.itt.minhduc.service.ProductService;
+import org.itt.minhduc.service.ProductServiceCustom;
 import org.itt.minhduc.web.rest.errors.BadRequestAlertException;
 import org.itt.minhduc.web.rest.util.HeaderUtil;
 import org.itt.minhduc.web.rest.util.PaginationUtil;
+import org.itt.minhduc.service.dto.CategoryDTO;
 import org.itt.minhduc.service.dto.ProductDTO;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -37,9 +40,12 @@ public class ProductResource {
     private static final String ENTITY_NAME = "product";
 
     private ProductService productService;
+    
+    private ProductServiceCustom productServiceCustom;
 
-    public ProductResource(ProductService productService) {
-        this.productService = productService;
+    public ProductResource(ProductService productService ,ProductServiceCustom productServiceCustom) {
+    	this.productService = productService;
+    	this.productServiceCustom = productServiceCustom;
     }
 
     /**
@@ -141,5 +147,28 @@ public class ProductResource {
     	List<ProductDTO> productDtos = productService.findProductByCaltalog(catalog);
     	return new ResponseEntity<>(productDtos, HttpStatus.OK);
     	
+    }
+    
+    @GetMapping("/products/getAll")
+    @Timed
+    public General<List<ProductDTO>> getAllProduct(
+    		@RequestParam(value = "size", required = false) Integer size,
+    		@RequestParam(value = "page", required = false) Integer page,
+    		@RequestParam(value = "category", required = false) String category) {
+    	   General<List<ProductDTO>> response = new General<>();
+    	try {
+    		Pageable pageable = new PageRequest(page, size);
+            Page<ProductDTO> pages = productServiceCustom.getPage(category,pageable);  
+            response.setCode(200);
+            response.setMessage("success full");
+            response.setValue(pages.getContent());
+            response.setTotalElements(pages.getTotalElements());
+            response.setTotalPages(pages.getTotalPages());
+		} catch (Exception e) {
+			response.setCode(400);
+            response.setMessage(e.getMessage());
+		}
+		 	
+    	return response;
     }
 }
