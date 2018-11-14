@@ -2,7 +2,6 @@ package org.itt.minhduc.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 
-import org.itt.minhduc.domain.enumeration.Catalog;
 import org.itt.minhduc.service.ProductService;
 import org.itt.minhduc.service.ProductServiceCustom;
 import org.itt.minhduc.web.rest.errors.BadRequestAlertException;
@@ -133,21 +132,6 @@ public class ProductResource {
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id)).build();
     }
     
-    /**
-     * GET  /products/:catalog : get the "catalog" product.
-     *
-     * @param catalog the catalog of the productDTO to retrieve
-     * @return the ResponseEntity with status 200 (OK) and with body the List of productDTO, or with status 404 (Not Found)
-     * @author haohotxn
-     */
-    @GetMapping("/products/{catalog}")
-    @Timed
-    public ResponseEntity<List<ProductDTO>> getProductsByCatalog(@PathVariable Catalog catalog){
-    	log.debug("REST request to get a page of Products");
-    	List<ProductDTO> productDtos = productService.findProductByCaltalog(catalog);
-    	return new ResponseEntity<>(productDtos, HttpStatus.OK);
-    	
-    }
     
     @GetMapping("/products/getAll")
     @Timed

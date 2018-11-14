@@ -1,10 +1,11 @@
 package org.itt.minhduc.web.rest;
 
 import org.itt.minhduc.SmartorderApp;
-
+import org.itt.minhduc.domain.Category;
 import org.itt.minhduc.domain.Product;
 import org.itt.minhduc.repository.ProductRepository;
 import org.itt.minhduc.service.ProductService;
+import org.itt.minhduc.service.ProductServiceCustom;
 import org.itt.minhduc.service.dto.ProductDTO;
 import org.itt.minhduc.service.mapper.ProductMapper;
 import org.itt.minhduc.web.rest.errors.ExceptionTranslator;
@@ -31,7 +32,6 @@ import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import org.itt.minhduc.domain.enumeration.Catalog;
 import org.itt.minhduc.domain.enumeration.StatusProduct;
 /**
  * Test class for the ProductResource REST controller.
@@ -51,8 +51,7 @@ public class ProductResourceIntTest {
     private static final Long DEFAULT_PRICE = 1L;
     private static final Long UPDATED_PRICE = 2L;
 
-    private static final Catalog DEFAULT_CATALOG = Catalog.FOOD;
-    private static final Catalog UPDATED_CATALOG = Catalog.DRINK;
+    private static final Category DEFAULT_CATALOG = new Category();
 
     private static final Long DEFAULT_VOTE = 1L;
     private static final Long UPDATED_VOTE = 2L;
@@ -83,6 +82,9 @@ public class ProductResourceIntTest {
 
     @Autowired
     private ExceptionTranslator exceptionTranslator;
+    
+    @Autowired
+    private ProductServiceCustom productServiceCustom;
 
     private MockMvc restProductMockMvc;
 
@@ -91,7 +93,7 @@ public class ProductResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final ProductResource productResource = new ProductResource(productService);
+        final ProductResource productResource = new ProductResource(productService, productServiceCustom);
         this.restProductMockMvc = MockMvcBuilders.standaloneSetup(productResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -110,7 +112,7 @@ public class ProductResourceIntTest {
             .name(DEFAULT_NAME)
             .image(DEFAULT_IMAGE)
             .price(DEFAULT_PRICE)
-            .catalog(DEFAULT_CATALOG)
+            .category(DEFAULT_CATALOG)
             .vote(DEFAULT_VOTE)
             .rate(DEFAULT_RATE)
             .count(DEFAULT_COUNT)
@@ -142,7 +144,7 @@ public class ProductResourceIntTest {
         assertThat(testProduct.getName()).isEqualTo(DEFAULT_NAME);
         assertThat(testProduct.getImage()).isEqualTo(DEFAULT_IMAGE);
         assertThat(testProduct.getPrice()).isEqualTo(DEFAULT_PRICE);
-        assertThat(testProduct.getCatalog()).isEqualTo(DEFAULT_CATALOG);
+        assertThat(testProduct.getCategory()).isEqualTo(DEFAULT_CATALOG);
         assertThat(testProduct.getVote()).isEqualTo(DEFAULT_VOTE);
         assertThat(testProduct.getRate()).isEqualTo(DEFAULT_RATE);
         assertThat(testProduct.getCount()).isEqualTo(DEFAULT_COUNT);
@@ -228,7 +230,7 @@ public class ProductResourceIntTest {
             .name(UPDATED_NAME)
             .image(UPDATED_IMAGE)
             .price(UPDATED_PRICE)
-            .catalog(UPDATED_CATALOG)
+            .category(DEFAULT_CATALOG)
             .vote(UPDATED_VOTE)
             .rate(UPDATED_RATE)
             .count(UPDATED_COUNT)
@@ -247,7 +249,7 @@ public class ProductResourceIntTest {
         assertThat(testProduct.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testProduct.getImage()).isEqualTo(UPDATED_IMAGE);
         assertThat(testProduct.getPrice()).isEqualTo(UPDATED_PRICE);
-        assertThat(testProduct.getCatalog()).isEqualTo(UPDATED_CATALOG);
+        assertThat(testProduct.getCategory()).isEqualTo(DEFAULT_CATALOG);
         assertThat(testProduct.getVote()).isEqualTo(UPDATED_VOTE);
         assertThat(testProduct.getRate()).isEqualTo(UPDATED_RATE);
         assertThat(testProduct.getCount()).isEqualTo(UPDATED_COUNT);

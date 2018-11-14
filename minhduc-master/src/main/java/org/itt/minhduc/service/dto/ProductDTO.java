@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.Objects;
 
 import org.itt.minhduc.domain.Category;
-import org.itt.minhduc.domain.enumeration.Catalog;
 import org.itt.minhduc.domain.enumeration.StatusProduct;
 
 /**
@@ -20,7 +19,6 @@ public class ProductDTO implements Serializable {
 
     private Long price;
 
-    private Catalog catalog;
     
     public CategoryDTO getCategory() {
 		return category;
@@ -72,13 +70,6 @@ public class ProductDTO implements Serializable {
         this.price = price;
     }
 
-    public Catalog getCatalog() {
-        return catalog;
-    }
-
-    public void setCatalog(Catalog catalog) {
-        this.catalog = catalog;
-    }
 
     public Long getVote() {
         return vote;
@@ -140,7 +131,7 @@ public class ProductDTO implements Serializable {
             ", name='" + getName() + "'" +
             ", image='" + getImage() + "'" +
             ", price=" + getPrice() +
-            ", catalog='" + getCatalog() + "'" +
+            ", catalog='" + getCategory() + "'" +
             ", vote=" + getVote() +
             ", rate=" + getRate() +
             ", count=" + getCount() +

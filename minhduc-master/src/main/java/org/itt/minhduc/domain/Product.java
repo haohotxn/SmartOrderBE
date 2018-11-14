@@ -3,12 +3,10 @@ package org.itt.minhduc.domain;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 
 import java.io.Serializable;
 import java.util.Objects;
 
-import org.itt.minhduc.domain.enumeration.Catalog;
 
 import org.itt.minhduc.domain.enumeration.StatusProduct;
 
@@ -32,9 +30,6 @@ public class Product extends AbstractAuditingEntity implements Serializable {
     @Field("price")
     private Long price;
 
-    @Field("catalog")
-    private Catalog catalog;
-    
     @Field("category")
     private Category category;
 
@@ -106,18 +101,12 @@ public class Product extends AbstractAuditingEntity implements Serializable {
         this.price = price;
     }
 
-    public Catalog getCatalog() {
-        return catalog;
-    }
 
-    public Product catalog(Catalog catalog) {
-        this.catalog = catalog;
+    public Product category(Category category) {
+        this.category = category;
         return this;
     }
 
-    public void setCatalog(Catalog catalog) {
-        this.catalog = catalog;
-    }
 
     public Long getVote() {
         return vote;
@@ -199,7 +188,7 @@ public class Product extends AbstractAuditingEntity implements Serializable {
             ", name='" + getName() + "'" +
             ", image='" + getImage() + "'" +
             ", price=" + getPrice() +
-            ", catalog='" + getCatalog() + "'" +
+            ", catalog='" + getCategory() + "'" +
             ", vote=" + getVote() +
             ", rate=" + getRate() +
             ", count=" + getCount() +

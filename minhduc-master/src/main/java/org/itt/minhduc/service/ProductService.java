@@ -1,7 +1,6 @@
 package org.itt.minhduc.service;
 
 import org.itt.minhduc.domain.Product;
-import org.itt.minhduc.domain.enumeration.Catalog;
 import org.itt.minhduc.repository.ProductRepository;
 import org.itt.minhduc.service.dto.ProductDTO;
 import org.itt.minhduc.service.mapper.ProductMapper;
@@ -81,17 +80,5 @@ public class ProductService {
         productRepository.deleteById(id);
     }
     
-    
-    /**
-     * find all products by catalog.
-     *
-     * @param Catalog need to find
-     * @return list of product
-     * @author haohotxn
-     */
-    public List<ProductDTO> findProductByCaltalog(Catalog catalog) {
-    	log.debug("Request to get Product by Catalog : {}", catalog);
-    	return productMapper.toDto(productRepository.findByCatalogLike(catalog));
-    }
     
 }
