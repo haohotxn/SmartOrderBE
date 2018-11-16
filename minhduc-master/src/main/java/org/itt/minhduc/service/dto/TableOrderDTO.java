@@ -17,7 +17,28 @@ public class TableOrderDTO implements Serializable {
 
     private String accessTableCode;
 
-    public String getId() {
+    private String guestRequest;
+    
+    private String detail;
+
+    
+    public String getGuestRequest() {
+		return guestRequest;
+	}
+
+	public void setGuestRequest(String guestRequest) {
+		this.guestRequest = guestRequest;
+	}
+
+	public String getDetail() {
+		return detail;
+	}
+
+	public void setDetail(String detail) {
+		this.detail = detail;
+	}
+
+	public String getId() {
         return id;
     }
 

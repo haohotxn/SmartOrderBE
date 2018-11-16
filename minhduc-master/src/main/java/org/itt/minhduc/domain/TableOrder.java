@@ -29,8 +29,32 @@ public class TableOrder extends AbstractAuditingEntity implements Serializable {
 
     @Field("access_table_code")
     private String accessTableCode;
+    
+    @Field("guest_request")
+    private String guestRequest;
+    
+    @Field("detail")
+    private String detail;
 
-    // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
+    
+    
+    public String getGuestRequest() {
+		return guestRequest;
+	}
+
+	public void setGuestRequest(String guestRequest) {
+		this.guestRequest = guestRequest;
+	}
+
+	public String getDetail() {
+		return detail;
+	}
+
+	public void setDetail(String detail) {
+		this.detail = detail;
+	}
+
+	// jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public String getId() {
         return id;
     }
