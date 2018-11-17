@@ -2,7 +2,7 @@ package org.itt.minhduc.web.rest;
 
 import java.io.Serializable;
 
-public class General<T> implements Serializable {
+public class StandardResponse<T> implements Serializable {
 	
 	private Integer code;
 	

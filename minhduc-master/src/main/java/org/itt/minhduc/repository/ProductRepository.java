@@ -2,6 +2,7 @@ package org.itt.minhduc.repository;
 
 import java.util.List;
 
+import org.bson.types.ObjectId;
 import org.itt.minhduc.domain.Category;
 import org.itt.minhduc.domain.Product;
 import org.springframework.data.mongodb.repository.Query;
@@ -16,8 +17,8 @@ import org.springframework.stereotype.Repository;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface ProductRepository extends MongoRepository<Product, String> {
+public interface ProductRepository extends MongoRepository<Product, String>{
 	
-    @Query("{'category.name': { $eq : ?0 }}")
-    Page<Product> findAll(String name, Pageable pageable);
+    @Query("{'category._id': { $eq : ?0 }}")
+    Page<Product> findAll(ObjectId id, Pageable pageable);
 }
