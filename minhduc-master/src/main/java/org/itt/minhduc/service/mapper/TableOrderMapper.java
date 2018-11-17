@@ -11,14 +11,5 @@ import org.mapstruct.*;
 @Mapper(componentModel = "spring", uses = {})
 public interface TableOrderMapper extends EntityMapper<TableOrderDTO, TableOrder> {
 
-
-
-    default TableOrder fromId(String id) {
-        if (id == null) {
-            return null;
-        }
-        TableOrder tableOrder = new TableOrder();
-        tableOrder.setId(id);
-        return tableOrder;
-    }
+  
 }

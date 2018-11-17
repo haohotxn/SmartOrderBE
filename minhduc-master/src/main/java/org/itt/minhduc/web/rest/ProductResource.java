@@ -7,13 +7,11 @@ import org.itt.minhduc.service.ProductServiceCustom;
 import org.itt.minhduc.web.rest.errors.BadRequestAlertException;
 import org.itt.minhduc.web.rest.util.HeaderUtil;
 import org.itt.minhduc.web.rest.util.PaginationUtil;
-import org.itt.minhduc.service.dto.CategoryDTO;
 import org.itt.minhduc.service.dto.ProductDTO;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
@@ -135,14 +133,20 @@ public class ProductResource {
     
     @GetMapping("/products/getAll")
     @Timed
-    public General<List<ProductDTO>> getAllProduct(
+    public StandardResponse<List<ProductDTO>> getAllProduct(
     		@RequestParam(value = "size", required = false) Integer size,
     		@RequestParam(value = "page", required = false) Integer page,
-    		@RequestParam(value = "category", required = false) String category) {
-    	   General<List<ProductDTO>> response = new General<>();
+    		@RequestParam(value = "category_id", required = true) String id) {
+    	    StandardResponse<List<ProductDTO>> response = new StandardResponse<>();
     	try {
+    		if(page == null) {
+    			page = 0;
+    		}
+    		if(size == null) {
+    			size = 100000;
+    		}
     		Pageable pageable = new PageRequest(page, size);
-            Page<ProductDTO> pages = productServiceCustom.getPage(category,pageable);  
+            Page<ProductDTO> pages = productServiceCustom.getPage(id,pageable);  
             response.setCode(200);
             response.setMessage("success full");
             response.setValue(pages.getContent());

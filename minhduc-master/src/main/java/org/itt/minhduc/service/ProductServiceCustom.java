@@ -5,5 +5,5 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface ProductServiceCustom {
-	   Page<ProductDTO> getPage(String name,Pageable pageable);
+	   Page<ProductDTO> getPage(String id,Pageable pageable);
 }

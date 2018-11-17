@@ -10,15 +10,5 @@ import org.mapstruct.*;
  */
 @Mapper(componentModel = "spring", uses = {})
 public interface InvoiceMapper extends EntityMapper<InvoiceDTO, Invoice> {
-
-
-
-    default Invoice fromId(String id) {
-        if (id == null) {
-            return null;
-        }
-        Invoice invoice = new Invoice();
-        invoice.setId(id);
-        return invoice;
-    }
+   
 }
