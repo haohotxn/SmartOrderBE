@@ -1,8 +1,12 @@
 package org.itt.minhduc.service;
 
 import org.itt.minhduc.config.FileStorageProperties;
+import org.itt.minhduc.domain.FileAtachment;
 import org.itt.minhduc.exception.FileStorageException;
 import org.itt.minhduc.exception.MyFileNotFoundException;
+import org.itt.minhduc.repository.FileAtachmentRepository;
+import org.itt.minhduc.service.dto.FileAtachmentDTO;
+import org.itt.minhduc.service.mapper.FileAtachmentMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.core.io.Resource;
@@ -10,6 +14,8 @@ import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.Files;
@@ -25,6 +31,12 @@ public class FileStorageService {
 
     private final Path fileStorageLocation;
     @Autowired
+    FileAtachmentRepository fileAtachmentRepository;
+    @Autowired
+    FileAtachmentMapper fileAtachmentMapper;
+    @Autowired
+    FileAtachmentService fileAtachService;
+    @Autowired
     public FileStorageService(FileStorageProperties fileStorageProperties) {
         this.fileStorageLocation = Paths.get(fileStorageProperties.getUploadDir())
                 .toAbsolutePath().normalize();
@@ -36,7 +48,7 @@ public class FileStorageService {
         }
     }
 
-    public String storeFile(MultipartFile file) {
+    public FileAtachmentDTO storeFile(MultipartFile file) {
         // Normalize file name
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
 
@@ -49,8 +61,18 @@ public class FileStorageService {
             // Copy file to the target location (Replacing existing file with the same name)
             Path targetLocation = this.fileStorageLocation.resolve(fileName);
             Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
-
-            return fileName;
+            
+            String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
+  	              .path("/downloadFile/")
+  	              .path(fileName)
+  	              .toUriString();
+  	        FileAtachmentDTO fileAtachmentDTO = new FileAtachmentDTO();
+  	        fileAtachmentDTO.setFileName(fileName);
+  	        fileAtachmentDTO.setFileType(file.getContentType());
+  	        fileAtachmentDTO.setSize(file.getSize());
+  	        fileAtachmentDTO.setFileDownloadUri(fileDownloadUri);
+  	        FileAtachment fileAtachment = fileAtachmentRepository.save(fileAtachmentMapper.toEntity(fileAtachmentDTO));
+            return fileAtachmentMapper.toDto(fileAtachment);
         } catch (IOException ex) {
             throw new FileStorageException("Could not store file " + fileName + ". Please try again!", ex);
         }

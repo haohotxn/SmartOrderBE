@@ -1,17 +1,31 @@
 package org.itt.minhduc.service.dto;
 
-public class UploadFileResponse {
-    private String fileName;
-    private String fileDownloadUri;
-    private String fileType;
-    private long size;
+public class FileAtachmentDTO {
+	private String id;
+	private String fileName;
+	private String fileDownloadUri;
 
-    public UploadFileResponse(String fileName, String fileDownloadUri, String fileType, long size) {
-        this.fileName = fileName;
-        this.fileDownloadUri = fileDownloadUri;
-        this.fileType = fileType;
-        this.size = size;
-    }
+	private String fileType;
+	private long size;
+
+	public FileAtachmentDTO(String fileName, String fileDownloadUri, String fileType, long size) {
+		this.fileName = fileName;
+		this.fileDownloadUri = fileDownloadUri;
+		this.fileType = fileType;
+		this.size = size;
+	}
+	
+	public FileAtachmentDTO() {
+		
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
 
 	public String getFileName() {
 		return fileName;
@@ -44,6 +58,5 @@ public class UploadFileResponse {
 	public void setSize(long size) {
 		this.size = size;
 	}
-    
-    
-} 
+
+}
