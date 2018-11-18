@@ -2,28 +2,40 @@ package org.itt.minhduc.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 
+import org.itt.minhduc.service.FileStorageService;
 import org.itt.minhduc.service.ProductService;
 import org.itt.minhduc.service.ProductServiceCustom;
 import org.itt.minhduc.web.rest.errors.BadRequestAlertException;
 import org.itt.minhduc.web.rest.util.HeaderUtil;
 import org.itt.minhduc.web.rest.util.PaginationUtil;
+import org.itt.minhduc.service.dto.FileAtachmentDTO;
 import org.itt.minhduc.service.dto.ProductDTO;
+import org.itt.minhduc.service.mapper.FileAtachmentMapper;
+
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
 import java.util.List;
 import java.util.Optional;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * REST controller for managing Product.
@@ -39,6 +51,12 @@ public class ProductResource {
     private ProductService productService;
     
     private ProductServiceCustom productServiceCustom;
+    
+    @Autowired
+    private FileStorageService fileStorageService;
+    
+    @Autowired
+    private FileAtachmentMapper fileAtachmentMapper;
 
     public ProductResource(ProductService productService ,ProductServiceCustom productServiceCustom) {
     	this.productService = productService;
@@ -131,13 +149,15 @@ public class ProductResource {
     }
     
     
-    @GetMapping("/products/getAll")
+    @SuppressWarnings({ "deprecation" })
+	@GetMapping("/products/getAll")
     @Timed
     public StandardResponse<List<ProductDTO>> getAllProduct(
     		@RequestParam(value = "size", required = false) Integer size,
     		@RequestParam(value = "page", required = false) Integer page,
     		@RequestParam(value = "category_id", required = true) String id) {
-    	    StandardResponse<List<ProductDTO>> response = new StandardResponse<>();
+    	
+    	StandardResponse<List<ProductDTO>> response = new StandardResponse<List<ProductDTO>>();
     	try {
     		if(page == null) {
     			page = 0;
@@ -159,4 +179,68 @@ public class ProductResource {
 		 	
     	return response;
     }
+    
+
+  
+  @PostMapping("/product/upload")
+  public StandardResponse<FileAtachmentDTO> uploadFile(@RequestParam(value ="file") MultipartFile file) {
+	  StandardResponse<FileAtachmentDTO> response = new StandardResponse<>();
+	  try {
+		  FileAtachmentDTO fileAtachmentDTO = fileStorageService.storeFile(file);
+//		  String fileName = fileStorageService.storeFile(file);
+//	      String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
+//	              .path("/downloadFile/")
+//	              .path(fileName)
+//	              .toUriString();
+//	      FileAtachmentDTO fileAtachmentDTO = new FileAtachmentDTO();
+//	      fileAtachmentDTO.setFileName(fileName);
+//	      fileAtachmentDTO.setFileType(file.getContentType());
+//	      fileAtachmentDTO.setSize(file.getSize());
+//	      fileAtachmentDTO.setFileDownloadUri(fileDownloadUri);
+	      response.setCode(200);
+	      response.setMessage("success");
+	      response.setValue(fileAtachmentDTO);
+	  } catch (Exception e) {
+		  response.setCode(400);
+	      response.setMessage("error");
+		  
+	  }
+     
+  
+//      return new UploadFileResponse(fileName, fileDownloadUri,
+//              file.getContentType(), file.getSize());
+	  return response;
+  }
+
+//  @PostMapping("/uploadMultipleFiles")
+//  public List<UploadFileResponse> uploadMultipleFiles(@RequestParam("files") MultipartFile[] files) {
+//      return Arrays.asList(files)
+//              .stream()
+//              .map(file -> uploadFile(file))
+//              .collect(Collectors.toList());
+//  }
+//
+  @GetMapping("/downloadFile/{fileName:.+}")
+  public ResponseEntity<Resource> downloadFile(@PathVariable String fileName, HttpServletRequest request) {
+      // Load file as Resource
+      Resource resource = fileStorageService.loadFileAsResource(fileName);
+
+      // Try to determine file's content type
+      String contentType = null;
+      try {
+          contentType = request.getServletContext().getMimeType(resource.getFile().getAbsolutePath());
+      } catch (IOException ex) {
+          log.info("Could not determine file type.");
+      }
+
+      // Fallback to the default content type if type could not be determined
+      if(contentType == null) {
+          contentType = "application/octet-stream";
+      }
+
+      return ResponseEntity.ok()
+              .contentType(MediaType.parseMediaType(contentType))
+              .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
+              .body(resource);
+  }
 }
