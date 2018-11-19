@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.itt.minhduc.service.CategoryService;
 import org.itt.minhduc.service.FileStorageService;
 import org.itt.minhduc.service.dto.CategoryDTO;
-import org.itt.minhduc.service.dto.UploadFileResponse;
 import org.itt.minhduc.web.rest.errors.BadRequestAlertException;
 import org.itt.minhduc.web.rest.util.HeaderUtil;
 import org.slf4j.Logger;

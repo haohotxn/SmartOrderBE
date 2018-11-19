@@ -21,8 +21,17 @@ public class TableOrderDTO implements Serializable {
     
     private String detail;
 
+    private String linkToTable;
     
-    public String getGuestRequest() {
+    public String getLinkToTable() {
+		return linkToTable;
+	}
+
+	public void setLinkToTable(String linkToTable) {
+		this.linkToTable = linkToTable;
+	}
+
+	public String getGuestRequest() {
 		return guestRequest;
 	}
 
