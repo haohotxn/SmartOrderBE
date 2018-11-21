@@ -39,7 +39,20 @@ public class TableOrder extends AbstractAuditingEntity implements Serializable {
     @Field("link_to_table")
     private String linkToTable;
     
-    public String getLinkToTable() {
+    @Field("table_booking")
+    private TableBooking tableBooking;
+    
+    
+    
+    public TableBooking getTableBooking() {
+		return tableBooking;
+	}
+
+	public void setTableBooking(TableBooking tableBooking) {
+		this.tableBooking = tableBooking;
+	}
+
+	public String getLinkToTable() {
 		return linkToTable;
 	}
 
