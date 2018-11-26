@@ -1,6 +1,7 @@
 package org.itt.minhduc.domain;
 
 import java.io.Serializable;
+import java.time.Instant;
 
 public class TableBooking extends AbstractAuditingEntity implements Serializable{
 	
@@ -10,8 +11,16 @@ public class TableBooking extends AbstractAuditingEntity implements Serializable
 	
 	private boolean bookingStatus;
 	
+	private Instant bookingTime;
 	
 
+	public Instant getBookingTime() {
+		return bookingTime;
+	}
+
+	public void setBookingTime(Instant bookingTime) {
+		this.bookingTime = bookingTime;
+	}
 
 	public boolean isBookingStatus() {
 		return bookingStatus;

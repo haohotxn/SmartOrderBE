@@ -28,8 +28,8 @@ public class Order extends AbstractAuditingEntity implements Serializable {
     @Field("table_id")
     private String tableId;
     
-    @Field("products")
-    private Set<Product> products;
+    @Field("products_in_order")
+    private Set<SetProductInOrder> productsInOrder;
     
     
     
@@ -41,12 +41,13 @@ public class Order extends AbstractAuditingEntity implements Serializable {
 		this.tableId = tableId;
 	}
 
-	public Set<Product> getProducts() {
-		return products;
+
+	public Set<SetProductInOrder> getProductsInOrder() {
+		return productsInOrder;
 	}
 
-	public void setProducts(Set<Product> products) {
-		this.products = products;
+	public void setProductsInOrder(Set<SetProductInOrder> productsInOrder) {
+		this.productsInOrder = productsInOrder;
 	}
 
 	// jhipster-needle-entity-add-field - JHipster will add fields here, do not remove

@@ -132,9 +132,9 @@ public class OrderResource {
      * @param id of table
      * @return the ResponseEntity with status 200 (OK) and the list of orders REQUEST, PENDING, INPROGESS, COMPLETED in body
      */
-    @GetMapping("/orders/{tableid}")
+    @GetMapping("/orders/findAll")
     @Timed
-    public ResponseEntity<List<OrderDTO>> getCurrentOrdersInTable(@PathVariable String tableid) {
+    public ResponseEntity<List<OrderDTO>> getCurrentOrdersInTable(@RequestParam(value = "table_id", required = true) String tableid) {
     	log.debug("REST request to get a page of Orders");
 		List<OrderDTO> orderDtos = orderService.findCurrentOrdersInTable(tableid);
 		return new ResponseEntity<>(orderDtos, HttpStatus.OK);
