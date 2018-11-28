@@ -2,6 +2,7 @@ package org.itt.minhduc.service.dto;
 
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.Set;
 
 import org.itt.minhduc.domain.TableBooking;
 import org.itt.minhduc.domain.enumeration.StatusTable;
@@ -25,15 +26,15 @@ public class TableOrderDTO implements Serializable {
 
     private String linkToTable;
     
-    private TableBooking tableBooking;
+    private Set<TableBooking> tableBooking;
     
     
-    
-    public TableBooking getTableBooking() {
+
+	public Set<TableBooking> getTableBooking() {
 		return tableBooking;
 	}
 
-	public void setTableBooking(TableBooking tableBooking) {
+	public void setTableBooking(Set<TableBooking> tableBooking) {
 		this.tableBooking = tableBooking;
 	}
 

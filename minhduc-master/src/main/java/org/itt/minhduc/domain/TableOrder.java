@@ -7,6 +7,7 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.Set;
 
 import org.itt.minhduc.domain.enumeration.StatusTable;
 
@@ -40,15 +41,15 @@ public class TableOrder extends AbstractAuditingEntity implements Serializable {
     private String linkToTable;
     
     @Field("table_booking")
-    private TableBooking tableBooking;
+    private Set<TableBooking> tableBooking;
     
     
-    
-    public TableBooking getTableBooking() {
+
+	public Set<TableBooking> getTableBooking() {
 		return tableBooking;
 	}
 
-	public void setTableBooking(TableBooking tableBooking) {
+	public void setTableBooking(Set<TableBooking> tableBooking) {
 		this.tableBooking = tableBooking;
 	}
 
