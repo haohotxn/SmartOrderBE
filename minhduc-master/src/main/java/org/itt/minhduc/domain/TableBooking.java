@@ -12,7 +12,7 @@ public class TableBooking extends AbstractAuditingEntity implements Serializable
 	
 	@Id
     private String id;
-	
+
 	@Field("name_of_customer")
 	private String nameOfCustomer;
 	
@@ -25,15 +25,28 @@ public class TableBooking extends AbstractAuditingEntity implements Serializable
 	@Field("booking_time")
 	private Instant bookingTime;
 	
+	@Field("reserve_money")
+	private Long reserveMoney;
+
+	
+	
+
+	public Long getReserveMoney() {
+		return reserveMoney;
+	}
+
+	public void setReserveMoney(Long reserveMoney) {
+		this.reserveMoney = reserveMoney;
+	}
 
 	public String getId() {
-        return id;
-    }
+		return id;
+	}
 
-    public void setId(String id) {
-        this.id = id;
-    }
-	
+	public void setId(String id) {
+		this.id = id;
+	}
+
 	public Instant getBookingTime() {
 		return bookingTime;
 	}
