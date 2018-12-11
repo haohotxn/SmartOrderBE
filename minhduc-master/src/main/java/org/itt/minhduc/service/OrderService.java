@@ -12,7 +12,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -93,11 +96,33 @@ public class OrderService {
         List<Order> orders = orderRepository.findByTableIdLike(tableId);
 		List<Order> currentOrdersInTable = new ArrayList<Order>();
 		for (Order order : orders) {
-			if ((order.getStatus() == StatusOrder.COMPLETED) || (order.getStatus() == StatusOrder.INPROGESS)
-					|| (order.getStatus() == StatusOrder.PENDING) || (order.getStatus() == StatusOrder.REQUEST)) {
+			if ((order.getStatus() == StatusOrder.COMPLETED) || (order.getStatus() == StatusOrder.REQUEST)) {
 				currentOrdersInTable.add(order);
 			}
 		}
         return orderMapper.toDto(currentOrdersInTable);
+    }
+    
+    /**
+     * Get all orders between.
+     *
+     * @param from, to
+     * @return the list of entities
+     */
+    public List<OrderDTO> findOrdersByDateBetween(Instant from, Instant to) {
+        log.debug("Request to get all Orders");
+        List<Order> orders = orderRepository.findAllByCreatedDateBetween(from, to);
+        return orderMapper.toDto(orders);
+    }
+    
+    /**
+     * Get all orders with status.
+     *
+     * @param status
+     * @return the list of entities
+     */
+    public Page<OrderDTO> findOrdersByStatus(StatusOrder status, Pageable pageable){
+    	log.debug("Request to get all Orders by Status");
+    	return orderRepository.findAllByStatusLike(status, pageable).map(orderMapper::toDto);
     }
 }

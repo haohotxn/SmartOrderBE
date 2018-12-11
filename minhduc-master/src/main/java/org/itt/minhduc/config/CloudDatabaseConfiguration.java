@@ -15,6 +15,10 @@ import org.springframework.cloud.service.ServiceInfo;
 import org.springframework.cloud.service.common.MongoServiceInfo;
 import org.springframework.context.annotation.*;
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.data.convert.Jsr310Converters.DateToInstantConverter;
+import org.springframework.data.convert.Jsr310Converters.InstantToDateConverter;
+import org.springframework.data.convert.Jsr310Converters.InstantToLocalDateTimeConverter;
+import org.springframework.data.convert.Jsr310Converters.LocalDateTimeToInstantConverter;
 import org.springframework.data.mongodb.MongoDbFactory;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.convert.MongoCustomConversions;
@@ -23,6 +27,7 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -53,6 +58,8 @@ public class CloudDatabaseConfiguration extends AbstractCloudConfig {
         List<Converter<?, ?>> converterList = new ArrayList<>();
         converterList.add(DateToZonedDateTimeConverter.INSTANCE);
         converterList.add(ZonedDateTimeToDateConverter.INSTANCE);
+        converterList.add(InstantToDateConverter.INSTANCE);
+        converterList.add(DateToInstantConverter.INSTANCE);
         return new MongoCustomConversions(converterList);
     }
 

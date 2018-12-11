@@ -14,6 +14,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.data.convert.Jsr310Converters.DateToInstantConverter;
+import org.springframework.data.convert.Jsr310Converters.InstantToDateConverter;
+import org.springframework.data.convert.Jsr310Converters.InstantToLocalDateTimeConverter;
+import org.springframework.data.convert.Jsr310Converters.LocalDateTimeToInstantConverter;
 import org.springframework.data.mongodb.config.EnableMongoAuditing;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.convert.MongoCustomConversions;
@@ -48,6 +52,8 @@ public class DatabaseConfiguration {
         List<Converter<?, ?>> converters = new ArrayList<>();
         converters.add(DateToZonedDateTimeConverter.INSTANCE);
         converters.add(ZonedDateTimeToDateConverter.INSTANCE);
+        converters.add(InstantToDateConverter.INSTANCE);
+        converters.add(DateToInstantConverter.INSTANCE);
         return new MongoCustomConversions(converters);
     }
 

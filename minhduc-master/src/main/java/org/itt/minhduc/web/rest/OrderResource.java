@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +21,11 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -140,6 +145,38 @@ public class OrderResource {
 		return new ResponseEntity<>(orderDtos, HttpStatus.OK);
     }
     
+    /**
+     * GET  /orders/{id} : get all the orders in a table.
+     *
+     * @param id of table
+     * @return the ResponseEntity with status 200 (OK) and the list of orders REQUEST, PENDING, INPROGESS, COMPLETED in body
+     */
+    @GetMapping("/orders/findOrderBetween")
+    @Timed
+    public ResponseEntity<List<OrderDTO>> getOrdersBetween(
+    		@RequestParam(value = "from_date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)  LocalDate from,
+    		@RequestParam(value = "to_date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDate to
+    		) {
+    	log.debug("REST request to get a page of Orders");
+    	
+		List<OrderDTO> orderDtos = orderService.findOrdersByDateBetween(
+				from.atStartOfDay(ZoneId.systemDefault()).toInstant(),
+				to.atStartOfDay(ZoneId.systemDefault()).plusDays(1).toInstant());
+		return new ResponseEntity<>(orderDtos, HttpStatus.OK);
+    }
     
-    
+    /**
+     * GET  /orders : get all the orders like status.
+     *
+     * @param pageable the pagination information
+     * @return the ResponseEntity with status 200 (OK) and the list of orders in body
+     */
+    @GetMapping("/orders/status")
+    @Timed
+    public ResponseEntity<List<OrderDTO>> getAllOrderLikeStatus(@RequestParam(value = "status", required = false) StatusOrder status, Pageable pageable){
+    	log.debug("REST request to get a page of Orders");
+    	Page<OrderDTO> page = orderService.findOrdersByStatus(status, pageable);
+    	HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/orders/status");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
 }
