@@ -8,6 +8,8 @@ import org.itt.minhduc.web.rest.errors.BadRequestAlertException;
 import org.itt.minhduc.web.rest.util.HeaderUtil;
 import org.itt.minhduc.web.rest.util.PaginationUtil;
 import org.itt.minhduc.service.dto.OrderDTO;
+import org.itt.minhduc.service.dto.OrderDTOWithTableName;
+
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -96,9 +98,9 @@ public class OrderResource {
      */
     @GetMapping("/orders")
     @Timed
-    public ResponseEntity<List<OrderDTO>> getAllOrders(Pageable pageable) {
+    public ResponseEntity<List<OrderDTOWithTableName>> getAllOrders(Pageable pageable) {
         log.debug("REST request to get a page of Orders");
-        Page<OrderDTO> page = orderService.findAll(pageable);
+        Page<OrderDTOWithTableName> page = orderService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/orders");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
@@ -139,9 +141,9 @@ public class OrderResource {
      */
     @GetMapping("/orders/findAll")
     @Timed
-    public ResponseEntity<List<OrderDTO>> getCurrentOrdersInTable(@RequestParam(value = "table_id", required = true) String tableid) {
+    public ResponseEntity<List<OrderDTOWithTableName>> getCurrentOrdersInTable(@RequestParam(value = "table_id", required = true) String tableid) {
     	log.debug("REST request to get a page of Orders");
-		List<OrderDTO> orderDtos = orderService.findCurrentOrdersInTable(tableid);
+		List<OrderDTOWithTableName> orderDtos = orderService.findCurrentOrdersInTable(tableid);
 		return new ResponseEntity<>(orderDtos, HttpStatus.OK);
     }
     
@@ -153,13 +155,13 @@ public class OrderResource {
      */
     @GetMapping("/orders/findOrderBetween")
     @Timed
-    public ResponseEntity<List<OrderDTO>> getOrdersBetween(
+    public ResponseEntity<List<OrderDTOWithTableName>> getOrdersBetween(
     		@RequestParam(value = "from_date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)  LocalDate from,
     		@RequestParam(value = "to_date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDate to
     		) {
     	log.debug("REST request to get a page of Orders");
     	
-		List<OrderDTO> orderDtos = orderService.findOrdersByDateBetween(
+		List<OrderDTOWithTableName> orderDtos = orderService.findOrdersByDateBetween(
 				from.atStartOfDay(ZoneId.systemDefault()).toInstant(),
 				to.atStartOfDay(ZoneId.systemDefault()).plusDays(1).toInstant());
 		return new ResponseEntity<>(orderDtos, HttpStatus.OK);
@@ -173,9 +175,9 @@ public class OrderResource {
      */
     @GetMapping("/orders/status")
     @Timed
-    public ResponseEntity<List<OrderDTO>> getAllOrderLikeStatus(@RequestParam(value = "status", required = false) StatusOrder status, Pageable pageable){
+    public ResponseEntity<List<OrderDTOWithTableName>> getAllOrderLikeStatus(@RequestParam(value = "status", required = false) StatusOrder status, Pageable pageable){
     	log.debug("REST request to get a page of Orders");
-    	Page<OrderDTO> page = orderService.findOrdersByStatus(status, pageable);
+    	Page<OrderDTOWithTableName> page = orderService.findOrdersByStatus(status, pageable);
     	HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/orders/status");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }

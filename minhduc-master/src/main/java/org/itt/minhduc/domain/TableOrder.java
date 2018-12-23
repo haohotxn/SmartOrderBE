@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.Objects;
 import java.util.Set;
 
+import org.itt.minhduc.domain.enumeration.GuestRequest;
 import org.itt.minhduc.domain.enumeration.StatusTable;
 
 /**
@@ -32,7 +33,7 @@ public class TableOrder extends AbstractAuditingEntity implements Serializable {
     private String accessTableCode;
     
     @Field("guest_request")
-    private String guestRequest;
+    private GuestRequest guestRequest;
     
     @Field("detail")
     private String detail;
@@ -61,11 +62,11 @@ public class TableOrder extends AbstractAuditingEntity implements Serializable {
 		this.linkToTable = linkToTable;
 	}
 
-	public String getGuestRequest() {
+	public GuestRequest getGuestRequest() {
 		return guestRequest;
 	}
 
-	public void setGuestRequest(String guestRequest) {
+	public void setGuestRequest(GuestRequest guestRequest) {
 		this.guestRequest = guestRequest;
 	}
 

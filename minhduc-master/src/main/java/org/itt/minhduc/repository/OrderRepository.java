@@ -25,5 +25,5 @@ public interface OrderRepository extends MongoRepository<Order, String> {
 //	@Query("{'created_date':{ $gt: ?0, $lt: ?1}}")
 	List<Order> findAllByCreatedDateBetween(Instant from, Instant to);
 	
-	Page<Order> findAllByStatusLike(StatusOrder status, Pageable pageable);
+	List<Order> findAllByStatusLike(StatusOrder status);
 }
